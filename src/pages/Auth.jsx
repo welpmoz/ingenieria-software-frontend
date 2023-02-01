@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useCookies } from "react-cookie"
+import "../components/login.css"
 
 export default function Auth() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
@@ -39,13 +40,14 @@ export default function Auth() {
       setCookie('username', data.username)
       setCookie('password', data.password)
       setCookie('firstName', data.firstName)
+      setCookie('isStaff', data.isStaff)
       window.location.reload()
     }
   }
 
   return (
-    <div>
-      <div>
+    <div className="form-container">
+      <div className="form-container">
         <form>
           <h2>{ isLogin ? 'Please log in' : 'Please sign up'}</h2>
           <input type='text' placeholder="username"
@@ -69,7 +71,7 @@ export default function Auth() {
           />
           {error && <p>{error}</p>}
         </form>
-        <div>
+        <div class="form-buttons">
           <button onClick={() => verLogin(false)}>Sign up</button>
           <button onClick={() => verLogin(true)}>Log in</button>
         </div>
@@ -77,3 +79,7 @@ export default function Auth() {
     </div>
   )
 }
+
+
+
+

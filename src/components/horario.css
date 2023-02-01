@@ -1,0 +1,92 @@
+.table-custom {
+    width: 80%;
+    margin: 50px auto;
+    border-collapse: collapse;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    /*color letra superir tabla  */
+
+  }
+  .table-custom thead {
+    background-color: #2C3E50;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .table-custom th,
+  .table-custom td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .table-custom tbody tr:hover {
+    background-color: #F0E68C;
+    transition: all 0.3s ease-in-out;
+  } 
+.prro{
+    font-size: 55px;
+    text-align: center;
+    color: #2C3E50;
+    background-color: #F0E68C;
+    /* agregar margen  */
+    margin: 20px 0;
+    padding: 20px;
+    /*color margen */
+    font-weight: bold;  
+}
+/* .horario table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .table-container {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 50px auto;
+
+  }
+  
+  .horario thead th {
+    background-color: #2C3E50;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 30px;
+    text-align: left;
+  }
+  
+  .horario tbody td {
+    padding: 30px;
+    font-size: 18px;
+    color: #777777;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .horario tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .horario tbody tr:hover {
+    background-color: #F0E68C;
+    transition: all 0.3s ease-in-out;
+  } */
+  .btn {
+    background-color: #2C3E50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn:hover {
+    background-color: #008ba3;
+  }
+  
+
+  

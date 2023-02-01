@@ -1,0 +1,29 @@
+.navbar {
+    background-color: #2C3E50;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-family: 'Montserrat', sans-serif;
+    height: 70px;
+  }
+  
+  .navbar-brand {
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .navbar-text a {
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+  
+  .btn-primary {
+    background-color: #F44336;
+    border-color: #F44336;
+    font-weight: bold;
+  }
+  

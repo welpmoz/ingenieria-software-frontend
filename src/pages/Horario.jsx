@@ -3,6 +3,8 @@ import { useNavigate, useParams, useLocation } from "react-router-dom"
 import base64 from 'base-64'
 import { Table } from "react-bootstrap"
 import { useCookies } from "react-cookie"
+import "../components/horario.css";
+
 
 export default function Horario() {
   const [cookies, setCookies, removeCookies] = useCookies(null)
@@ -12,7 +14,7 @@ export default function Horario() {
   const username = cookies.username
   const password = cookies.password
   const docente = cookies.firstName
-  console.log(username, password, docente)
+  // console.log(username, password, docente)
   const location = useLocation()
   let { carrera, grupo } = location.state
   curso = curso.replace(' ', '+')
@@ -43,9 +45,9 @@ export default function Horario() {
   return (
     // <div>Horario</div>
     <div className="horario">
-      <h1>{ curso }</h1>
-      <button onClick={() => navigate(-1)}>Back</button>
-      <Table striped bordered hover>
+      <h1 className="prro">{ curso }</h1>
+      <button className="btn" onClick={() => navigate(-1)}>Back</button>
+      <Table className="table-custom striped bordered hover">
         <thead>
           <tr>
             <th>Día</th>

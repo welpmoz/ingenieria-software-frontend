@@ -12,14 +12,17 @@ import base64 from 'base-64'
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import Auth from './Auth';
+import '../components/home.css';
 
 function Home() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const username = cookies.username
   const password = cookies.password
   const first_name = cookies.firstName
+  const isStaff = cookies.isStaff
 
   const [cursos, setCursos] = useState(null)
+  const [formsSilabo, setFormsSilabo] = useState([])
 
   const getData = async() => {
     const headers = new Headers();
@@ -31,7 +34,6 @@ function Home() {
         headers: headers,
       })
       const data = await response.json()
-      //console.log(data)
       setCursos(data)
     }
     catch (err) {
@@ -39,6 +41,26 @@ function Home() {
     }
   }
 
+  const subirSilabo = async(e, i, curso) => {
+    e.preventDefault()
+    console.log(e.target.id)
+    const f = document.getElementById(`file${i}`).files[0];
+    console.log(f)
+    try {
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json')
+      headers.append('Authorization', 'Basic ' + base64.encode(username+':'+password))
+      const response = await fetch(`http://localhost:8000/api/silabos/${curso}/`, {
+        method:'POST',
+        headers:headers,
+        body: {'silabo':f},
+      })
+      console.log(response)
+    }
+    catch (err) {
+      console.log('ocurrio un error al subir silabo', err)
+    }
+  }
   // hook effect
   useEffect(() => {
     getData()
@@ -50,8 +72,8 @@ function Home() {
       { !username && <Auth />}
       { username &&
         <>
-          <Appbar username={username} />
-          <Table striped bordered hover>
+          <Appbar username={username} isAdmin={isStaff} />
+          <Table className="table-custom striped bordered hover">
             <thead>
               <tr>
                 <th>Código</th>
@@ -65,22 +87,29 @@ function Home() {
             </thead>
             <tbody>
               {
-                cursos?.map((curso, index) => (
-                  <tr key={index}>
-                    <th>{ curso.codigo }</th>
-                    <th>
-                      <Link to={`/${curso.denominacion}`}
-                        state={{ carrera:curso.carrera, grupo:curso.grupo }}>
-                          {curso.denominacion}
-                      </Link>
-                    </th>
-                    <th>{ curso.carrera }</th>
-                    <th>{ curso.creditos }</th>
-                    <th>{ curso.grupo }</th>
-                    <th>{ curso.matriculados }</th>
-                    <th>{ curso.silabo }</th>
-                  </tr>
-                ))
+                cursos?.map((curso, index) => {
+                  return (
+                    <tr key={index}>
+                      <th>{ curso.codigo }</th>
+                      <th>
+                        <Link to={`/${curso.denominacion}`}
+                          state={{ carrera:curso.carrera, grupo:curso.grupo }}>
+                            {curso.denominacion}
+                        </Link>
+                      </th>
+                      <th>{ curso.carrera }</th>
+                      <th>{ curso.creditos }</th>
+                      <th>{ curso.grupo }</th>
+                      <th>{ curso.matriculados }</th>
+                      <th>
+                        <form id={`form${index}`}>
+                          <input type='file' id={`file${index}`} multiple/>
+                          <input type='submit' id={`submit${index}`} onClick={e => subirSilabo(e, index, curso.denominacion)}/>
+                        </form>
+                      </th>
+                    </tr>
+                  )
+                })
               }
             </tbody>
           </Table>
