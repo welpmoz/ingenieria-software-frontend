@@ -41,20 +41,27 @@ function Home() {
     }
   }
 
-  const subirSilabo = async(e, i, curso) => {
+  const subirSilabo = async(e, i, curso, grupo) => {
     e.preventDefault()
     console.log(e.target.id)
     const f = document.getElementById(`file${i}`).files[0];
     console.log(f)
     try {
+      const formData = new FormData()
+      formData.append('silabo', f)
       const headers = new Headers();
-      headers.append('Content-Type', 'application/json')
-      headers.append('Authorization', 'Basic ' + base64.encode(username+':'+password))
-      const response = await fetch(`http://localhost:8000/api/silabos/${curso}/`, {
-        method:'POST',
-        headers:headers,
-        body: {'silabo':f},
-      })
+      const request = new XMLHttpRequest()
+      request.open('POST', `http://localhost:8000/api/silabos/${curso}/?docente=${first_name}&grupo=${grupo}/`, true, username, password)
+      request.setRequestHeader("Authorization", "Basic " + window.btoa(username+':'+password))
+      //request.withCredentials = true
+      const response = request.send(formData)
+      // headers.append('Content-Type', 'multipart/form-data')
+      // headers.append('Authorization', 'Basic ' + base64.encode(username+':'+password))
+      // const response = await fetch(`http://localhost:8000/api/silabos/${curso}/`, {
+      //   method:'POST',
+      //   headers:headers,
+      //   body: formData,
+      // })
       console.log(response)
     }
     catch (err) {
@@ -102,9 +109,9 @@ function Home() {
                       <th>{ curso.grupo }</th>
                       <th>{ curso.matriculados }</th>
                       <th>
-                        <form id={`form${index}`}>
+                        <form id={`form${index}`} encType='multipart/form-data'>
                           <input type='file' id={`file${index}`} multiple/>
-                          <input type='submit' id={`submit${index}`} onClick={e => subirSilabo(e, index, curso.denominacion)}/>
+                          <input type='submit' id={`submit${index}`} onClick={e => subirSilabo(e, index, curso.denominacion, curso.grupo)}/>
                         </form>
                       </th>
                     </tr>
