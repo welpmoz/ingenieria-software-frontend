@@ -4,47 +4,50 @@ import base64 from 'base-64'
 import { Table } from "react-bootstrap"
 import { useCookies } from "react-cookie"
 import "../components/horario.css";
+import axios from "axios"
+import CargaAlumnos from "../components/CargaAlumnos"
+import Appbar from "../components/Appbar"
 
 
 export default function Horario() {
   const [cookies, setCookies, removeCookies] = useCookies(null)
   const [horarios, setHorarios] = useState([])
+  // const [error, setError] = useState(null)
   const navigate = useNavigate()
   let { curso } = useParams()
   const username = cookies.username
   const password = cookies.password
-  const docente = cookies.firstName
-  // console.log(username, password, docente)
+  // const first_name = cookies.first_name
   const location = useLocation()
-  let { carrera, grupo } = location.state
-  curso = curso.replace(' ', '+')
-  carrera = carrera.replace(' ', '+')
+  const { codigo, grupo } = location.state
 
-  const getHorarios = async() => {
-    const headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    headers.append('Authorization', 'Basic ' + base64.encode(username+':'+password))
+  const getHorariosAxios = async() => {
     try {
-      const response = await fetch(
-          `http://localhost:8000/api/horarios/?docente=${docente}&grupo=${grupo}&carrera=${carrera}&curso=${curso}`, {
-        method: 'GET',
-        headers: headers,
+      const response = await axios.get(`http://localhost:8000/api/horarios/?grupo=${grupo}&codigocurso=${codigo}`, {
+        headers: {
+          'Content-Type':'application/json',
+        },
+        auth: {
+          username,
+          password
+        }
       })
-      const data = await response.json()
+      const { data } = response
       setHorarios(data)
     }
     catch (err) {
-      console.log('ocurrio un error en horarios', err)
+      console.log('error en horarios', err)
     }
   }
 
   useEffect(() => {
-    getHorarios()
+    getHorariosAxios()
   }, [])
 
   return (
     // <div>Horario</div>
     <div className="horario">
+      <Appbar username={username} isAdmin={true} page='Horarios' />
       <h1 className="prro">{ curso }</h1>
       <button className="btn" onClick={() => navigate(-1)}>Back</button>
       <Table className="table-custom striped bordered hover">
@@ -71,6 +74,7 @@ export default function Horario() {
           }
         </tbody>
       </Table>
+      <CargaAlumnos codigocurso={codigo} grupo={grupo} />
     </div>
   )
 }

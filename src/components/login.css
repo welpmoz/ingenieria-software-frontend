@@ -80,9 +80,7 @@ button:hover {
     transition: all 0.3s ease-in-out;
     margin-right: 10px;
   }
-  
+ 
   .form-buttons button:hover {
     background-color: #2C3E50;
   }
-  
-

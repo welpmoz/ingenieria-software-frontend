@@ -39,8 +39,7 @@ export default function Auth() {
     else {
       setCookie('username', data.username)
       setCookie('password', data.password)
-      setCookie('firstName', data.firstName)
-      setCookie('isStaff', data.isStaff)
+      setCookie('is_staff', data.is_staff)
       window.location.reload()
     }
   }

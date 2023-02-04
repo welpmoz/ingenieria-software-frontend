@@ -5,20 +5,20 @@ import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import "./appbar.css"
 
-function Appbar({ username, isAdmin }) {
+function Appbar({ page, username, isAdmin }) {
   const [cookies, setCookie, removeCookie] = useCookies(null)
 
   const signOut = () => {
     removeCookie('username')
     removeCookie('password')
-    removeCookie('firstName')
-    removeCookie('isStaff')
+    removeCookie('is_staff')
     window.location.reload()
   }
+
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand href="#home">CURSOS </Navbar.Brand>
+        <Navbar.Brand href="#home">{ page }</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>

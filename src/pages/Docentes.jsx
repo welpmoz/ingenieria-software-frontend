@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 
-import base64 from 'base-64'
 import { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Appbar from "../components/Appbar";
+import axios from "axios";
 
 export default function Docentes() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
@@ -16,20 +17,15 @@ export default function Docentes() {
   const [docentes, setDocentes] = useState(null)
 
   const getData = async() => {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json')
-    headers.append('Authorization', 'Basic ' + base64.encode(username+':'+password))
-    try {
-      const response = await fetch('http://localhost:8000/api/docentes/', {
-        method: 'GET',
-        headers: headers,
-      })
-      const data = await response.json()
-      setDocentes(data)
-    }
-    catch (err) {
-      console.log('ocurrio un error en docentes', err)
-    }
+    const response = await axios.get(`http://localhost:8000/api/docentes/`, {
+      headers: { 'Content-Type':'application/json' },
+      auth: {
+        username,
+        password
+      }
+    })
+    const { data } = response
+    setDocentes(data)
   }
 
   useEffect(() => {
@@ -38,6 +34,7 @@ export default function Docentes() {
 
   return (
     <div className="docentes">
+      <Appbar isAdmin={true} page='Docentes' username={username} />
       <button className="btn" onClick={() => navigate(-1)}>Back</button>
       <Table className="table-custom striped bordered hover">
         <thead>
