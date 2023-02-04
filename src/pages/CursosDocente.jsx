@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie"
 import { useNavigate, useParams } from "react-router-dom"
 
 import axios from "axios"
+import Appbar from "../components/Appbar"
 
 export default function CursosDocente() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
@@ -32,6 +33,7 @@ export default function CursosDocente() {
 
   return (
     <div>
+      <Appbar isAdmin={true} page='Cuso de docentes' username />
       <h1>Cursos de { docente }</h1>
       <button onClick={() => navigate(-1)}>Volver</button>
       <Table className="table-custom striped bordered hover">

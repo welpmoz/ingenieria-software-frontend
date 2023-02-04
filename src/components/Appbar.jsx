@@ -2,17 +2,19 @@ import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { useCookies } from 'react-cookie';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./appbar.css"
 
 function Appbar({ page, username, isAdmin }) {
   const [cookies, setCookie, removeCookie] = useCookies(null)
 
+  const navigate = useNavigate()
+
   const signOut = () => {
     removeCookie('username')
     removeCookie('password')
     removeCookie('is_staff')
-    window.location.reload()
+    navigate('/')
   }
 
   return (

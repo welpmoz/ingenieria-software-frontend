@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useCookies } from "react-cookie"
-import { useNavigate } from "react-router"
 import "../components/login.css"
 
 export default function Auth() {
@@ -11,8 +10,6 @@ export default function Auth() {
   const [password, setPassword] = useState(null)
   const [firstName, setFirstName] = useState(null)
   const [username, setUsername] = useState(null)
-
-  const navigate = useNavigate()
 
   const verLogin = estado => {
     setError(null)
@@ -43,7 +40,7 @@ export default function Auth() {
       setCookie('username', data.username)
       setCookie('password', data.password)
       setCookie('is_staff', data.is_staff)
-      navigate('/')
+      window.location.reload()
     }
   }
 
