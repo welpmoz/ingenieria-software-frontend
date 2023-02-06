@@ -35,7 +35,7 @@ export default function Docentes() {
   return (
     <div className="docentes">
       <Appbar isAdmin={true} page='Docentes' username={username} />
-      <button className="btn" onClick={() => navigate(-1)}>Back</button>
+      <button onClick={() => navigate(-1)}>Back</button>
       <Table className="table-custom striped bordered hover">
         <thead>
           <tr>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function Curso({
     index, codigo, denominacion, grupo,
     carrera, creditos, matriculados,
-    silabo_url, id, key }) {
+    silabo_url, id }) {
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const [miSilabo, setMiSilabo] = useState(silabo_url)
   const username = cookies.username
@@ -38,11 +38,11 @@ export default function Curso({
   }
 
   return (
-    <tr key={index}>
+    <tr>
       <th>{ codigo }</th>
       <th>
         <Link to={`/${denominacion}`}
-          state={{ codigo, grupo }}>
+          state={{ codigo, grupo, id }}>
           { denominacion }
         </Link>
       </th>

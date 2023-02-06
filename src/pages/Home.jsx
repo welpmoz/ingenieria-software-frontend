@@ -15,7 +15,6 @@ function Home() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const username = cookies.username
   const password = cookies.password
-  // const first_name = cookies.firstName
   const is_staff = cookies.is_staff
 
   const [cursos, setCursos] = useState(null)
@@ -45,7 +44,7 @@ function Home() {
       { !username && <Auth />}
       { username &&
         <>
-          <Appbar username={username} isAdmin={true} page='Cursos'/>
+          <Appbar username={username} isAdmin={is_staff} page='Cursos'/>
           <Table className="table-custom striped bordered hover">
             <thead>
               <tr>

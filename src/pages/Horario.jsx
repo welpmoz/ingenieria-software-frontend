@@ -17,9 +17,9 @@ export default function Horario() {
   let { curso } = useParams()
   const username = cookies.username
   const password = cookies.password
-  // const first_name = cookies.first_name
+  const is_staff = cookies.is_staff
   const location = useLocation()
-  const { codigo, grupo } = location.state
+  const { codigo, grupo, id } = location.state
 
   const getHorariosAxios = async() => {
     try {
@@ -45,9 +45,8 @@ export default function Horario() {
   }, [])
 
   return (
-    // <div>Horario</div>
     <div className="horario">
-      <Appbar username={username} isAdmin={true} page='Horarios' />
+      <Appbar page='Horarios' />
       <h1 className="prro">{ curso }</h1>
       <button className="btn" onClick={() => navigate(-1)}>Back</button>
       <Table className="table-custom striped bordered hover">

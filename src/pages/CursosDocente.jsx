@@ -11,6 +11,7 @@ export default function CursosDocente() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const username = cookies.username
   const password = cookies.password
+  const is_staff = cookies.is_staff
   const [misCursos, setMisCursos] = useState([])
   const navigate = useNavigate()
   const { docente } = useParams()
@@ -33,7 +34,7 @@ export default function CursosDocente() {
 
   return (
     <div>
-      <Appbar isAdmin={true} page='Cuso de docentes' username />
+      <Appbar isAdmin={is_staff} page='Cuso de docentes' username />
       <h1>Cursos de { docente }</h1>
       <button onClick={() => navigate(-1)}>Volver</button>
       <Table className="table-custom striped bordered hover">

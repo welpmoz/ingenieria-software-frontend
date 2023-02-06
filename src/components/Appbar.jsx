@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -5,8 +6,10 @@ import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import "./appbar.css"
 
-function Appbar({ page, username, isAdmin }) {
+function Appbar({ page }) {
   const [cookies, setCookie, removeCookie] = useCookies(null)
+  const username = cookies.username
+  const is_staff = cookies.is_staff
 
   const navigate = useNavigate()
 
@@ -27,11 +30,7 @@ function Appbar({ page, username, isAdmin }) {
             Signed in as: <a href="#login">{ username }</a>
           </Navbar.Text>
           <Button variant='primary' onClick={signOut}>Logout</Button>
-          {isAdmin &&
-            <Button variant='primary'>
-              <Link to='/docentes'>Ver Docentes</Link>
-            </Button>
-          }
+          { is_staff && <button>Ver Docentes</button> }
         </Navbar.Collapse>
       </Container>
     </Navbar>
